@@ -1,13 +1,30 @@
-var bowling = function(x) {
-  // console.log(x);
+var bowling = function(frames) {
+
   var score = 0;
 
-  score = x[0].ball1 + x[0].ball2;
+  for(var i = 0;i < frames.length; i++) {
+    //for last frame
+    if(frames[9].ball1 && frames[9].ball2 >= 10) {
+      score += frames[9].ball1 + frames[9].ball2 + frames[9].ball3;
+      return score;
+    }
+
+    // for strikes
+    if(frames[i].ball1 === 10) {
+      score += frames[i].ball1 + ((frames[i + 1].ball1 + frames[i + 1].ball2));
+      return score ;
+    }
+    // for spares
+    if(frames[i].ball1 !== 10 && frames[i].ball1 + frames[i].ball2 === 10) {
+      score += frames[i].ball1 + frames[i].ball2 + frames[i + 1].ball1;
+      return score;
+    }
+    //for anything other than spares and strikes
+     if (frames[i].ball1 + frames[i].ball2 < 10) {
+      score += frames[i].ball1 + frames[i].ball2;
+    }
+  }
   return score;
-
 };
-  var frames = [{ball1: 0, ball2: 0}];
 
-//   console.log(frames);
-// console.log(bowling(frames));
 module.exports = bowling;
